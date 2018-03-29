@@ -1,0 +1,6 @@
+framework module Pods_Caption_Suggestion {
+  umbrella header "Pods-Caption Suggestion-umbrella.h"
+
+  export *
+  module * { export * }
+}

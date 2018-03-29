@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>1088939647020-jf53td2gamdlg5atrsg3copbv4pfj297.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1088939647020-jf53td2gamdlg5atrsg3copbv4pfj297</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA4TdIt90M0pHEjMgyxN7jFyqZSRXhUTvQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1088939647020</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>francescovirga.Caption-Suggestion</string>
+	<key>PROJECT_ID</key>
+	<string>caption-suggestion</string>
+	<key>STORAGE_BUCKET</key>
+	<string>caption-suggestion.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1088939647020:ios:b7a56c6e3262f1a2</string>
+	<key>DATABASE_URL</key>
+	<string>https://caption-suggestion.firebaseio.com</string>
+</dict>
+</plist>

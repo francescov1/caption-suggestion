@@ -7,14 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31DA4510653ED5A025FFDB9D /* Pods_Caption_Suggestion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2092FC42B31335BB6CE3891B /* Pods_Caption_Suggestion.framework */; };
 		7919F234206D622700C61A5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F233206D622700C61A5E /* AppDelegate.swift */; };
 		7919F236206D622700C61A5E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F235206D622700C61A5E /* ViewController.swift */; };
 		7919F239206D622700C61A5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7919F237206D622700C61A5E /* Main.storyboard */; };
 		7919F23B206D622700C61A5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7919F23A206D622700C61A5E /* Assets.xcassets */; };
 		7919F23E206D622700C61A5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7919F23C206D622700C61A5E /* LaunchScreen.storyboard */; };
+		7919F246206D63C300C61A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7919F245206D63C300C61A5E /* GoogleService-Info.plist */; };
+		7919F248206D655800C61A5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F247206D655800C61A5E /* Constants.swift */; };
+		7919F24A206D658800C61A5E /* InstagramProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F249206D658800C61A5E /* InstagramProvider.swift */; };
+		7919F24C206D65C200C61A5E /* CaptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */; };
+		7919F24E206D66C900C61A5E /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F24D206D66C900C61A5E /* CaptionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2092FC42B31335BB6CE3891B /* Pods_Caption_Suggestion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Caption_Suggestion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		701FD72900C685D9A002113A /* Pods-Caption Suggestion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caption Suggestion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion.debug.xcconfig"; sourceTree = "<group>"; };
 		7919F230206D622700C61A5E /* Caption Suggestion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Caption Suggestion.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7919F233206D622700C61A5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7919F235206D622700C61A5E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +30,12 @@
 		7919F23A206D622700C61A5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7919F23D206D622700C61A5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7919F23F206D622700C61A5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7919F245206D63C300C61A5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7919F247206D655800C61A5E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7919F249206D658800C61A5E /* InstagramProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramProvider.swift; sourceTree = "<group>"; };
+		7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTableViewCell.swift; sourceTree = "<group>"; };
+		7919F24D206D66C900C61A5E /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
+		A96906D84B05DCBD2FF1798E /* Pods-Caption Suggestion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caption Suggestion.release.xcconfig"; path = "Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31DA4510653ED5A025FFDB9D /* Pods_Caption_Suggestion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +55,8 @@
 			children = (
 				7919F232206D622700C61A5E /* Caption Suggestion */,
 				7919F231206D622700C61A5E /* Products */,
+				B03FB0A082EBAB7621A83377 /* Pods */,
+				7EA7834DD467862CC0593AF9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,9 +76,31 @@
 				7919F237206D622700C61A5E /* Main.storyboard */,
 				7919F23A206D622700C61A5E /* Assets.xcassets */,
 				7919F23C206D622700C61A5E /* LaunchScreen.storyboard */,
+				7919F245206D63C300C61A5E /* GoogleService-Info.plist */,
 				7919F23F206D622700C61A5E /* Info.plist */,
+				7919F247206D655800C61A5E /* Constants.swift */,
+				7919F249206D658800C61A5E /* InstagramProvider.swift */,
+				7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */,
+				7919F24D206D66C900C61A5E /* CaptionViewController.swift */,
 			);
 			path = "Caption Suggestion";
+			sourceTree = "<group>";
+		};
+		7EA7834DD467862CC0593AF9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2092FC42B31335BB6CE3891B /* Pods_Caption_Suggestion.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B03FB0A082EBAB7621A83377 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				701FD72900C685D9A002113A /* Pods-Caption Suggestion.debug.xcconfig */,
+				A96906D84B05DCBD2FF1798E /* Pods-Caption Suggestion.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7919F242206D622700C61A5E /* Build configuration list for PBXNativeTarget "Caption Suggestion" */;
 			buildPhases = (
+				1ACA6E8320F30680EE4FF4B4 /* [CP] Check Pods Manifest.lock */,
 				7919F22C206D622700C61A5E /* Sources */,
 				7919F22D206D622700C61A5E /* Frameworks */,
 				7919F22E206D622700C61A5E /* Resources */,
+				FDE22A7E63E0375293ECB14C /* [CP] Embed Pods Frameworks */,
+				EDA82F7DB81E12A8BF9B0D56 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -124,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7919F23E206D622700C61A5E /* LaunchScreen.storyboard in Resources */,
+				7919F246206D63C300C61A5E /* GoogleService-Info.plist in Resources */,
 				7919F23B206D622700C61A5E /* Assets.xcassets in Resources */,
 				7919F239206D622700C61A5E /* Main.storyboard in Resources */,
 			);
@@ -131,13 +174,71 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1ACA6E8320F30680EE4FF4B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Caption Suggestion-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDA82F7DB81E12A8BF9B0D56 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FDE22A7E63E0375293ECB14C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7919F22C206D622700C61A5E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7919F236206D622700C61A5E /* ViewController.swift in Sources */,
+				7919F24E206D66C900C61A5E /* CaptionViewController.swift in Sources */,
 				7919F234206D622700C61A5E /* AppDelegate.swift in Sources */,
+				7919F248206D655800C61A5E /* Constants.swift in Sources */,
+				7919F24A206D658800C61A5E /* InstagramProvider.swift in Sources */,
+				7919F24C206D65C200C61A5E /* CaptionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +373,7 @@
 		};
 		7919F243206D622700C61A5E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 701FD72900C685D9A002113A /* Pods-Caption Suggestion.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +389,7 @@
 		};
 		7919F244206D622700C61A5E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A96906D84B05DCBD2FF1798E /* Pods-Caption Suggestion.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
