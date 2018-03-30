@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseCore
 import FirebaseDatabase
+import Crashlytics
 
 struct CaptionJSON: Codable {
     var suggestedCaptions: [String]

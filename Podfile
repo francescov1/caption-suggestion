@@ -9,5 +9,7 @@ target 'Caption Suggestion' do
     pod 'Firebase/Core'
     pod 'Firebase/Database'
     pod 'Firebase'
+    pod 'Fabric'
+    pod 'Crashlytics', '~> 3.10.1'
 
 end

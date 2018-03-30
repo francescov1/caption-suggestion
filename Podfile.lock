@@ -1,4 +1,7 @@
 PODS:
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
+  - Fabric (1.7.6)
   - Firebase (3.17.0):
     - Firebase/Core (= 3.17.0)
   - Firebase/Core (3.17.0):
@@ -22,11 +25,15 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.1)
 
 DEPENDENCIES:
+  - Crashlytics (~> 3.10.1)
+  - Fabric
   - Firebase
   - Firebase/Core
   - Firebase/Database
 
 SPEC CHECKSUMS:
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
@@ -34,6 +41,6 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
 
-PODFILE CHECKSUM: ac95ac9350c87251d95eb59549e132d77f7f12ef
+PODFILE CHECKSUM: 4ca2ea8f5b820fa6b2ff5e8d538dea0f4b996d89
 
 COCOAPODS: 1.4.0
