@@ -23,6 +23,7 @@ struct Constants {
     
     struct ListenerName {
         static let CAPTIONS_RECEIVED = NSNotification.Name("CaptionsReceived")
+        static let CAPTIONS_FAILED = NSNotification.Name("CaptionsFailed")
     }
     
     

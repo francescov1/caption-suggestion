@@ -48,7 +48,6 @@ class CaptionViewController: UIViewController {
     
     func waitForCaptions() {
         NotificationCenter.default.addObserver(forName: Constants.ListenerName.CAPTIONS_RECEIVED, object: nil, queue: nil) { (notification) in
-            
             if let captions = notification.object as? CaptionJSON {
                 self.tableData = captions.suggestedCaptions
                 
@@ -61,6 +60,18 @@ class CaptionViewController: UIViewController {
                 }
                 print("Image Info:\nSuggested: \(captions.suggestedCaptions)")
             }
+        }
+        
+        NotificationCenter.default.addObserver(forName: Constants.ListenerName.CAPTIONS_FAILED, object: nil, queue: nil) { (notification) in
+            if let error = notification.object as? Error {
+                
+                // log in FIR analytics
+                // show error message and ask if want to retry
+                self.alertUser(title: "Error", message: "Sorry about this, we're working on fixing it! Please try again.")
+                
+                print(error.localizedDescription)
+            }
+            
         }
     }
     

@@ -15,7 +15,7 @@ exports.suggestCaptions = functions.https.onRequest((request, response) => {
     let data = request.body;
     var additionalKeyword;
     var synonymsPromise;
-    if (request.headers[headers.keyword]) { // trim whitespace of keyword
+    if (request.headers[headers.keyword]) {
       additionalKeyword = request.headers[headers.keyword];
       additionalKeyword = additionalKeyword.trim();
       synonymsPromise = fetchSynonyms(additionalKeyword);
@@ -26,10 +26,11 @@ exports.suggestCaptions = functions.https.onRequest((request, response) => {
 
     let numOfCaps = parseInt(request.headers[headers.numsuggestions]);
 
-    // only request tags or description to make quicker
+    // change to get Tags visualFeatures and only use tags with certainty > 0.8 (for example)
+
     // Azure Computer Vision API call
     var params = {
-        "visualFeatures": "Color,Categories,Description,Tags,Faces",
+        "visualFeatures": "Description",
         "details": "",
         "language": "en",
     };

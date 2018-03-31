@@ -22,8 +22,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var generateButton: UIButton!
     @IBOutlet weak var pickerViewer: UIPickerView!
     
-    
-    
     var dbRef: FIRDatabaseReference {
         return FIRDatabase.database().reference()
     }
@@ -80,7 +78,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         // send request
         URLSession.shared.dataTask(with: urlReq) { (data, response, error) in
             if error != nil {
-                print(error!.localizedDescription)
+                NotificationCenter.default.post(name: Constants.ListenerName.CAPTIONS_FAILED, object: error)
                 return
             }
             guard let data = data else { return }
@@ -96,7 +94,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
             catch let jsonError {
                 print(jsonError)
             }
-            }.resume()
+        }.resume()
     }
     
     // helper function (pop-up box)
