@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import FacebookShare
 
 class CaptionViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var feedbackView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var happyReactionButton: UIButton!
+    @IBOutlet weak var sadReactionButton: UIButton!
+    
     
     var tableData: [String] = []
     
@@ -22,9 +27,12 @@ class CaptionViewController: UIViewController {
     }
     
     @IBAction func happyReactionAction(_ sender: Any) {
+        disableFeedback()
         alertUser(title: "Enjoy the ❤️s", message: "Hope to see you again soon!")
     }
+    
     @IBAction func sadReactionAction(_ sender: Any) {
+        disableFeedback()
         alertUser(title: "Sorry about that!", message: "We will consider this and improve our system for next time 😘")
     }
     
@@ -75,6 +83,31 @@ class CaptionViewController: UIViewController {
         }
     }
     
+    func shareToFacebook(image: UIImage, caption: String) {
+        let photo = Photo(image: image, userGenerated: true)
+        let content = PhotoShareContent(photos: [photo])
+        
+        let shareDialog = ShareDialog(content: content)
+        shareDialog.mode = .native
+        shareDialog.failsOnInvalidData = true
+        shareDialog.completion = { result in
+            // Handle share results
+        }
+        do {
+            try shareDialog.show()
+        }
+        catch let error {
+            print("error with fb share \(error.localizedDescription)")
+        }
+        
+        
+    }
+    
+    func disableFeedback() {
+        happyReactionButton.isEnabled = false
+        sadReactionButton.isEnabled = false
+    }
+    
     // helper function (pop-up box)
     func alertUser(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -108,6 +141,12 @@ extension CaptionViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableData.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let caption = tableData[indexPath.row]
+        
+        shareToFacebook()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

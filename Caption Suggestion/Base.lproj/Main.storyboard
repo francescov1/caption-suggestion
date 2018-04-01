@@ -122,7 +122,7 @@
         <!--Caption View Controller-->
         <scene sceneID="F6k-8J-cDd">
             <objects>
-                <viewController id="A4D-n6-a6a" customClass="CaptionViewController" customModule="Insta_Caption" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="A4D-n6-a6a" customClass="CaptionViewController" customModule="Caption_Suggestion" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RCA-Xz-qFd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -156,7 +156,7 @@
                                             <constraint firstAttribute="width" secondItem="cVj-QA-a9B" secondAttribute="height" multiplier="1:1" id="f0S-Lk-UNR"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellReuseId" id="FiX-uA-Jst" customClass="CaptionTableViewCell" customModule="Insta_Caption" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellReuseId" id="FiX-uA-Jst" customClass="CaptionTableViewCell" customModule="Caption_Suggestion" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="356" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FiX-uA-Jst" id="ikI-co-BlN">
@@ -263,6 +263,8 @@
                     <connections>
                         <outlet property="activityIndicator" destination="vRK-Rx-wuM" id="qV5-Pe-ixO"/>
                         <outlet property="feedbackView" destination="gl4-pV-g8h" id="siQ-wu-8QL"/>
+                        <outlet property="happyReactionButton" destination="Vql-ID-lkD" id="QYI-7e-TIF"/>
+                        <outlet property="sadReactionButton" destination="JjM-BN-FJR" id="rTo-Rx-xFs"/>
                         <outlet property="tableView" destination="cVj-QA-a9B" id="ok5-le-cNZ"/>
                     </connections>
                 </viewController>

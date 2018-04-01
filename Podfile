@@ -12,4 +12,8 @@ target 'Caption Suggestion' do
     pod 'Fabric'
     pod 'Crashlytics', '~> 3.10.1'
 
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+    pod 'FacebookShare'
+
 end

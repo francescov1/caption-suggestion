@@ -47,6 +47,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         addTapGesture()
         pickerViewer.dataSource = self
         pickerViewer.delegate = self
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,6 +75,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         if keyword != "" {
             urlReq.addValue(keyword, forHTTPHeaderField: Constants.RequestHeader.ADDITIONAL_KEYWORD)
         }
+        
         
         // send request
         URLSession.shared.dataTask(with: urlReq) { (data, response, error) in
