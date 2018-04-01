@@ -122,7 +122,7 @@ function captionRefine(captions, tags, keyword, synonyms, n) {
 
     console.log('Flags:\n' + flags);
     var refinedCaptions = []
-    for(i=0; i<n; i++) {
+    while (refinedCaptions.length < n) {
       let max = Math.max.apply(null, flags);
       let index = flags.indexOf(max);
       // set flag to 0 and add caption to suggested captions
