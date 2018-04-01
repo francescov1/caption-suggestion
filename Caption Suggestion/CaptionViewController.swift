@@ -18,6 +18,7 @@ class CaptionViewController: UIViewController {
     @IBOutlet weak var happyReactionButton: UIButton!
     @IBOutlet weak var sadReactionButton: UIButton!
     
+    var imageToPost: UIImage?
     
     var tableData: [String] = []
     
@@ -68,30 +69,45 @@ class CaptionViewController: UIViewController {
                 }
                 print("Image Info:\nSuggested: \(captions.suggestedCaptions)")
             }
-        }
-        
-        NotificationCenter.default.addObserver(forName: Constants.ListenerName.CAPTIONS_FAILED, object: nil, queue: nil) { (notification) in
-            if let error = notification.object as? Error {
+            
+            // caption failed, notification is error
+            else if let error = notification.object as? Error {
                 
                 // log in FIR analytics
                 // show error message and ask if want to retry
-                self.alertUser(title: "Error", message: "Sorry about this, we're working on fixing it! Please try again.")
                 
+                self.alertUser(title: "Error", message: "Sorry about this, we're working on fixing it! Please try again.")
                 print(error.localizedDescription)
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: Constants.ListenerName.IMAGE_TO_POST, object: nil, queue: nil) { (notification) in
+            if let image = notification.object as? UIImage {
+                self.imageToPost = image
             }
             
         }
     }
     
-    func shareToFacebook(image: UIImage, caption: String) {
-        let photo = Photo(image: image, userGenerated: true)
+    func shareSheet(caption: String) {
+         guard let image = imageToPost else { return }
+        
+        let vc = UIActivityViewController(activityItems: [caption, image], applicationActivities: [])
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func shareToFacebook(caption: String) {
+        guard let image = imageToPost else { return }
+        
+        var photo = Photo(image: image, userGenerated: true)
+        photo.caption = caption
         let content = PhotoShareContent(photos: [photo])
         
         let shareDialog = ShareDialog(content: content)
         shareDialog.mode = .native
         shareDialog.failsOnInvalidData = true
         shareDialog.completion = { result in
-            // Handle share results
+            // point to feedback buttons or pop up a message
         }
         do {
             try shareDialog.show()
@@ -99,7 +115,6 @@ class CaptionViewController: UIViewController {
         catch let error {
             print("error with fb share \(error.localizedDescription)")
         }
-        
         
     }
     
@@ -145,8 +160,8 @@ extension CaptionViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let caption = tableData[indexPath.row]
-        
-        shareToFacebook()
+        //shareToFacebook(caption: caption)
+        shareSheet(caption: caption)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

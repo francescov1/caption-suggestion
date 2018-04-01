@@ -47,7 +47,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         addTapGesture()
         pickerViewer.dataSource = self
         pickerViewer.delegate = self
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,17 +79,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         // send request
         URLSession.shared.dataTask(with: urlReq) { (data, response, error) in
             if error != nil {
-                NotificationCenter.default.post(name: Constants.ListenerName.CAPTIONS_FAILED, object: error)
+                NotificationCenter.default.post(name: Constants.ListenerName.CAPTIONS_RECEIVED, object: error)
                 return
             }
             guard let data = data else { return }
             do {
                 // assign response JSON to struct
                 let captions = try JSONDecoder().decode(CaptionJSON.self, from: data)
-                //let captions = String(data: data, encoding: .utf8)!
-                // add code to send image to notif center.
                 
                 // next vc will place observer on notif center and wait until captions arrived
+                NotificationCenter.default.post(name: Constants.ListenerName.IMAGE_TO_POST, object: self.imageView.image)
                 NotificationCenter.default.post(name: Constants.ListenerName.CAPTIONS_RECEIVED, object: captions)
             }
             catch let jsonError {
@@ -105,6 +103,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         let ok = UIAlertAction(title: "Dismiss", style: .default, handler: completion)
         alert.addAction(ok)
         present(alert, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
     }
     
 }

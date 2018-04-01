@@ -35,7 +35,7 @@
                                 <state key="normal" title="Generate!"/>
                                 <connections>
                                     <action selector="generateAction:" destination="JFf-hg-19B" eventType="touchUpInside" id="huh-Ei-TrK"/>
-                                    <segue destination="A4D-n6-a6a" kind="show" id="8k7-EK-nFe"/>
+                                    <segue destination="A4D-n6-a6a" kind="show" identifier="resultsSegue" id="8k7-EK-nFe"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insta Caption" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSB-oM-dPz">
