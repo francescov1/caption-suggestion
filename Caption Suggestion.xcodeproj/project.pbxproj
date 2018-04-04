@@ -18,6 +18,7 @@
 		7919F24C206D65C200C61A5E /* CaptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */; };
 		7919F24E206D66C900C61A5E /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F24D206D66C900C61A5E /* CaptionViewController.swift */; };
 		791A45A1207548E30036712D /* SharingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A45A0207548E30036712D /* SharingManager.swift */; };
+		791A45A6207554380036712D /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A45A5207554380036712D /* DatabaseManager.swift */; };
 		79CBD52320701D1000975243 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CBD52220701D1000975243 /* AlertManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTableViewCell.swift; sourceTree = "<group>"; };
 		7919F24D206D66C900C61A5E /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
 		791A45A0207548E30036712D /* SharingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingManager.swift; sourceTree = "<group>"; };
+		791A45A5207554380036712D /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		79CBD52220701D1000975243 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		A96906D84B05DCBD2FF1798E /* Pods-Caption Suggestion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caption Suggestion.release.xcconfig"; path = "Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +92,7 @@
 			children = (
 				79CBD52220701D1000975243 /* AlertManager.swift */,
 				791A45A0207548E30036712D /* SharingManager.swift */,
+				791A45A5207554380036712D /* DatabaseManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				791A45A6207554380036712D /* DatabaseManager.swift in Sources */,
 				7919F236206D622700C61A5E /* ViewController.swift in Sources */,
 				7919F24E206D66C900C61A5E /* CaptionViewController.swift in Sources */,
 				7919F234206D622700C61A5E /* AppDelegate.swift in Sources */,

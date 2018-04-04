@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import FacebookShare
 import FBSDKShareKit
+import FirebaseCore
+import FirebaseDatabase
 
 class CaptionViewController: UIViewController {
 
@@ -22,7 +23,6 @@ class CaptionViewController: UIViewController {
     var imageToPost: UIImage?
     var tableData: [String] = []
     
-    
     @IBAction func backAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -30,11 +30,13 @@ class CaptionViewController: UIViewController {
     @IBAction func happyReactionAction(_ sender: Any) {
         disableFeedback()
         AlertManager.sharedManager.alertUser(title: "Enjoy the ❤️s", message: "Hope to see you again soon!", completion: nil)
+        DatabaseManager.sharedManager.saveReaction(captions: tableData, good: true)
     }
     
     @IBAction func sadReactionAction(_ sender: Any) {
         disableFeedback()
         AlertManager.sharedManager.alertUser(title: "Sorry about that!", message: "We will consider this and improve our system for next time 😘", completion: nil)
+        DatabaseManager.sharedManager.saveReaction(captions: tableData, good: false)
     }
     
     override func viewDidLoad() {
@@ -67,7 +69,6 @@ class CaptionViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     self.fadeIn(view: self.feedbackView, delay: 0)
                 }
-                print("Image Info:\nSuggested: \(captions.suggestedCaptions)")
             }
             
             // caption failed, notification is error
@@ -152,11 +153,11 @@ extension CaptionViewController: UITableViewDataSource, UITableViewDelegate {
             AlertManager.sharedManager.alertUser(title: "Error with image uploaded", message: "Ensure the image is still saved on your phone and try again", completion: nil)
             return
         }
+        
         sharePopup(image: image, caption: caption)
         // documentControllerPost(image: image, caption: caption)
        // InstagramManager.sharedManager.documentControllerPost(image: image, caption: caption)
-        
-        
+    
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

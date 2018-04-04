@@ -203,7 +203,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vql-ID-lkD">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="130"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                                <state key="normal" title="😊"/>
+                                                <state key="normal" title="👍"/>
                                                 <connections>
                                                     <action selector="happyReactionAction:" destination="A4D-n6-a6a" eventType="touchUpInside" id="2Vq-mf-Uap"/>
                                                 </connections>

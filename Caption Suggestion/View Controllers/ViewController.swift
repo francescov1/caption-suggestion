@@ -22,10 +22,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var generateButton: UIButton!
     @IBOutlet weak var pickerViewer: UIPickerView!
     
-    var dbRef: FIRDatabaseReference {
-        return FIRDatabase.database().reference()
-    }
-    
     let pickerData = Constants.PICKER_DATA
     
     @IBAction func choseImageAction(_ sender: Any) {
