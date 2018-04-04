@@ -13,10 +13,11 @@ const wordapi = functions.config().wordapi;
 exports.suggestCaptions = functions.https.onRequest((request, response) => {
 
     let data = request.body;
-    let additionalKeyword;
+    var additionalKeyword;
     var synonymsPromise;
-    if (request.headers[headers.keyword]) { // trim whitespace of keyword
+    if (request.headers[headers.keyword]) {
       additionalKeyword = request.headers[headers.keyword];
+      additionalKeyword = additionalKeyword.trim();
       synonymsPromise = fetchSynonyms(additionalKeyword);
     }
 
@@ -25,11 +26,11 @@ exports.suggestCaptions = functions.https.onRequest((request, response) => {
 
     let numOfCaps = parseInt(request.headers[headers.numsuggestions]);
 
-    // only request tags to make quicker
+    // change to get Tags visualFeatures and only use tags with certainty > 0.8 (for example)
 
     // Azure Computer Vision API call
     var params = {
-        "visualFeatures": "Color,Categories,Description,Tags,Faces",
+        "visualFeatures": "Description",
         "details": "",
         "language": "en",
     };
@@ -45,6 +46,7 @@ exports.suggestCaptions = functions.https.onRequest((request, response) => {
     };
 
     function callback(err, res, body) {
+      console.timeEnd("computerVisionTagFetch");
       if (!err && (res.statusCode === 200 || res.statusCode === 201)) {
         console.log('Data:\n' + body);
 
@@ -82,6 +84,7 @@ exports.suggestCaptions = functions.https.onRequest((request, response) => {
         response.status(res.statusCode || 400).send(err);
       }
     }
+    console.time("computerVisionTagFetch")
     requestPK(options, callback);
 });
 
@@ -102,15 +105,15 @@ function captionRefine(captions, tags, keyword, synonyms, n) {
     flags.fill(1);
     // loop through captions, check for keywords
     // if found, increment flags accordingly
-    for(var j=0; j<captions.length; j++) {
+    for (var j=0; j<captions.length; j++) {
       // check for tags in captions
-      for(var i=0; i<tags.length; i++) {
+      for (var i=0; i<tags.length; i++) {
         if(captions[j].indexOf(tags[i]) !== -1) flags[j] += 2;
       }
       // check for keyword synonyms in captions
-      if(synonyms) {
-        for(i=0; i<synonyms.length; i++) {
-          if(captions[j].indexOf(synonyms[i]) !== -1) flags[j] += 1;
+      if (synonyms) {
+        for (i=0; i<synonyms.length; i++) {
+          if (captions[j].indexOf(synonyms[i]) !== -1) flags[j] += 1;
         }
       }
       // check for keyword in captions
@@ -119,12 +122,13 @@ function captionRefine(captions, tags, keyword, synonyms, n) {
 
     console.log('Flags:\n' + flags);
     var refinedCaptions = []
-    for(i=0; i<n; i++) {
+    while (refinedCaptions.length < n) {
       let max = Math.max.apply(null, flags);
       let index = flags.indexOf(max);
       // set flag to 0 and add caption to suggested captions
       flags[index] = 0;
-      refinedCaptions.push(captions[index]);
+      let newCaption = captions[index];
+      if (refinedCaptions.indexOf(newCaption) === -1) refinedCaptions.push(newCaption);
     }
     return refinedCaptions;
 }
