@@ -15,10 +15,10 @@
 		7919F23E206D622700C61A5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7919F23C206D622700C61A5E /* LaunchScreen.storyboard */; };
 		7919F246206D63C300C61A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7919F245206D63C300C61A5E /* GoogleService-Info.plist */; };
 		7919F248206D655800C61A5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F247206D655800C61A5E /* Constants.swift */; };
-		7919F24A206D658800C61A5E /* InstagramProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F249206D658800C61A5E /* InstagramProvider.swift */; };
+		7919F24A206D658800C61A5E /* InstagramManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F249206D658800C61A5E /* InstagramManager.swift */; };
 		7919F24C206D65C200C61A5E /* CaptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */; };
 		7919F24E206D66C900C61A5E /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F24D206D66C900C61A5E /* CaptionViewController.swift */; };
-		79CBD52320701D1000975243 /* AlertsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CBD52220701D1000975243 /* AlertsProvider.swift */; };
+		79CBD52320701D1000975243 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CBD52220701D1000975243 /* AlertManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,10 +33,10 @@
 		7919F23F206D622700C61A5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7919F245206D63C300C61A5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7919F247206D655800C61A5E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		7919F249206D658800C61A5E /* InstagramProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramProvider.swift; sourceTree = "<group>"; };
+		7919F249206D658800C61A5E /* InstagramManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramManager.swift; sourceTree = "<group>"; };
 		7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTableViewCell.swift; sourceTree = "<group>"; };
 		7919F24D206D66C900C61A5E /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
-		79CBD52220701D1000975243 /* AlertsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsProvider.swift; sourceTree = "<group>"; };
+		79CBD52220701D1000975243 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		A96906D84B05DCBD2FF1798E /* Pods-Caption Suggestion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caption Suggestion.release.xcconfig"; path = "Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,10 +81,10 @@
 				7919F245206D63C300C61A5E /* GoogleService-Info.plist */,
 				7919F23F206D622700C61A5E /* Info.plist */,
 				7919F247206D655800C61A5E /* Constants.swift */,
-				7919F249206D658800C61A5E /* InstagramProvider.swift */,
+				7919F249206D658800C61A5E /* InstagramManager.swift */,
 				7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */,
 				7919F24D206D66C900C61A5E /* CaptionViewController.swift */,
-				79CBD52220701D1000975243 /* AlertsProvider.swift */,
+				79CBD52220701D1000975243 /* AlertManager.swift */,
 			);
 			path = "Caption Suggestion";
 			sourceTree = "<group>";
@@ -268,8 +268,8 @@
 				7919F24E206D66C900C61A5E /* CaptionViewController.swift in Sources */,
 				7919F234206D622700C61A5E /* AppDelegate.swift in Sources */,
 				7919F248206D655800C61A5E /* Constants.swift in Sources */,
-				7919F24A206D658800C61A5E /* InstagramProvider.swift in Sources */,
-				79CBD52320701D1000975243 /* AlertsProvider.swift in Sources */,
+				7919F24A206D658800C61A5E /* InstagramManager.swift in Sources */,
+				79CBD52320701D1000975243 /* AlertManager.swift in Sources */,
 				7919F24C206D65C200C61A5E /* CaptionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

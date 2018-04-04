@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookShare
+import FBSDKShareKit
 
 class CaptionViewController: UIViewController {
 
@@ -89,38 +90,65 @@ class CaptionViewController: UIViewController {
         }
     }
     
+    // TODO: Add button titles to constants
+    func sharePopup(image: UIImage, caption: String) {
+        AlertManager.sharedManager.askUser(title: "Share image with your new suggested caption!", message: "You will still have the chance to make any finishing touches 👌", buttonTitles: ["Facebook", "Instagram"]) { (action) in
+            guard let buttonTitle = action.title else {
+                print("Error with title names")
+                return
+            }
+            
+            switch buttonTitle {
+                
+            case "Facebook":
+                self.shareToFacebook(caption: caption)
+            case "Instagram":
+                InstagramManager.sharedManager.documentControllerPost(image: image, caption: caption)
+            default:
+                print("Error")
+                
+            }
+        }
+    }
+    
     func shareSheet(caption: String) {
          guard let image = imageToPost else { return }
         
-        let vc = UIActivityViewController(activityItems: [caption, image], applicationActivities: [])
-        present(vc, animated: true, completion: nil)
+        
+        //var activityVC = UIActivityViewController(activityItems: [caption, image], applicationActivities: [])
+        //activityVC.excludedActivityTypes[UIActivityTypePostToFacebook]
+        //present(activityVC, animated: true, completion: nil)
+
+        //InstagramManager.sharedManager.postImageToInstagramWithCaption(imageData: image, instagramCaption: caption, barButton: <#T##UIBarButtonItem#>)
+        InstagramManager.sharedManager.openInstagram()
     }
     
     func shareToFacebook(caption: String) {
-        guard let image = imageToPost else { return }
+        // TODO: Add caption to post
+        guard let image = imageToPost else {
+            alertUser(title: "Error Opening Facebook", message: "Ensure you have the Facebook app installed and try again")
+            return
+        }
         
-        var photo = Photo(image: image, userGenerated: true)
+        guard var photo = FBSDKSharePhoto(image: image, userGenerated: true) else {
+            alertUser(title: "Error Sending Data to Facebook", message: "Ensure you have the Facebook app installed and try again")
+            return
+        }
+        
         photo.caption = caption
-        let content = PhotoShareContent(photos: [photo])
         
-        let shareDialog = ShareDialog(content: content)
-        shareDialog.mode = .native
-        shareDialog.failsOnInvalidData = true
-        shareDialog.completion = { result in
-            // point to feedback buttons or pop up a message
-        }
-        do {
-            try shareDialog.show()
-        }
-        catch let error {
-            print("error with fb share \(error.localizedDescription)")
-        }
+        var content = FBSDKSharePhotoContent()
+        content.photos = [photo]
+    
+        
+        FBSDKShareDialog.show(from: self, with: content, delegate: nil)
         
     }
     
     func disableFeedback() {
         happyReactionButton.isEnabled = false
         sadReactionButton.isEnabled = false
+        // TODO:make buttons translucent
     }
     
     // helper function (pop-up box)
@@ -140,6 +168,42 @@ class CaptionViewController: UIViewController {
         }, completion: nil)
     }
     
+    
+    func documentControllerPost(image: UIImage, caption: String) {
+        
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let checkValidation = FileManager.default
+        let getImagePath = paths.appending("/image.igo")
+        do {
+            try checkValidation.removeItem(atPath: getImagePath)
+        }
+        catch let error {
+            print("error with checkValidation: \(error)")
+            return
+        }
+        
+        let imageData =  UIImageJPEGRepresentation(image, 1.0)
+        
+        do {
+            try imageData?.write(to: URL(fileURLWithPath: getImagePath), options: .atomicWrite)
+        }
+        catch let error {
+            print("error with imageData write: \(error)")
+            return
+        }
+        
+        let imageUrl = URL(fileURLWithPath: getImagePath)
+        
+        var documentController = UIDocumentInteractionController(url: imageUrl)
+        documentController.uti = "com.instagram.exclusivegram"
+    
+        documentController.presentOptionsMenu(from: self.view.frame, in: self.view, animated: true)
+        // try other option (openInMenu???)
+        AlertManager.sharedManager.alertUser(title: "Test", message: "Worked", completion: nil)
+        // topVC.present(documentController, animated: true, completion: nil)
+        
+    }
+    
 }
 
 
@@ -152,6 +216,8 @@ extension CaptionViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.backgroundColor = UIColor.clear
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
+        
+        tableView.allowsMultipleSelection = false
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -161,7 +227,17 @@ extension CaptionViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let caption = tableData[indexPath.row]
         //shareToFacebook(caption: caption)
-        shareSheet(caption: caption)
+        //shareSheet(caption: caption)
+        
+        guard let image = imageToPost else {
+            alertUser(title: "Error Opening Facebook", message: "Ensure you have the Facebook app installed and try again")
+            return
+        }
+        sharePopup(image: image, caption: caption)
+        // documentControllerPost(image: image, caption: caption)
+       // InstagramManager.sharedManager.documentControllerPost(image: image, caption: caption)
+        
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

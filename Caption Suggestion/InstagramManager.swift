@@ -27,6 +27,61 @@ class InstagramManager: NSObject, UIDocumentInteractionControllerDelegate {
         return Singleton.instance
     }
     
+    func openInstagram() {
+        
+        if let instagramURL = URL(string: "instagram://app") {
+            if UIApplication.shared.canOpenURL(instagramURL) {
+                UIApplication.shared.open(instagramURL, options: [:], completionHandler: nil)
+            }
+        }
+        /*if UIApplication.shared.canOpenURL(instagramURL!) {
+            UIApplication.shared.open(instagramURL, options: nil, completionHandler: nil)
+        }*/
+        
+        
+        //NSURL *instagramURL = [NSURL URLWithString:@"instagram://location?id=1"];
+ 
+    }
+    
+    func documentControllerPost(image: UIImage, caption: String) {
+       
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let checkValidation = FileManager.default
+        let getImagePath = paths.appending("/image.igo")
+        do {
+            try checkValidation.removeItem(atPath: getImagePath)
+        }
+        catch let error {
+            print("error with checkValidation: \(error)")
+            return
+        }
+        
+        let imageData =  UIImageJPEGRepresentation(image, 1.0)
+        
+        do {
+            try imageData?.write(to: URL(fileURLWithPath: getImagePath), options: .atomicWrite)
+        }
+        catch let error {
+            print("error with imageData write: \(error)")
+            return
+        }
+        
+        let imageUrl = URL(fileURLWithPath: getImagePath)
+        
+        var documentController = UIDocumentInteractionController(url: imageUrl)
+        documentController.uti = "com.instagram.exclusivegram"
+        guard let topVC = UIApplication.topViewController() else {
+            print("could not find topVC")
+            return
+        }
+        documentController.annotation = ["InstagramCaption": caption]
+        
+        documentController.presentOptionsMenu(from: topVC.view.frame, in: topVC.view, animated: true)
+        AlertManager.sharedManager.alertUser(title: "Test", message: "Worked", completion: nil)
+       // topVC.present(documentController, animated: true, completion: nil)
+        
+    }
+    
     func postImageToInstagramWithCaption(imageData: Data, instagramCaption: String, barButton: UIBarButtonItem) {
         // called to post image with caption to the instagram application
         
