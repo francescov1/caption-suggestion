@@ -130,14 +130,17 @@ class SharingManager: NSObject {
 }
 
 extension SharingManager: FBSDKSharingDelegate {
+    
+    // TODO: Log errors
+    
     func sharer(_ sharer: FBSDKSharing!, didCompleteWithResults results: [AnyHashable : Any]!) {
-        print("Worked")
+        // ask for feedback if havent given already
     }
     func sharer(_ sharer: FBSDKSharing!, didFailWithError error: Error!) {
-        print("Worked")
+        AlertManager.sharedManager.alertUser(title: "Error Opening Facebook", message: "Ensure you have the Facebook app installed and try again.", completion: nil)
     }
     func sharerDidCancel(_ sharer: FBSDKSharing!) {
-        print("Worked")
+        // pop up about canceling, ask to try again or for feedback if it wasnt good
     }
 
     /*
