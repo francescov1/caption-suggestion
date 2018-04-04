@@ -43,7 +43,8 @@ class CaptionViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         
-        feedbackView.alpha = 0 // hide feedbackView (fade in when data ready)
+        // hide feedbackView (fade in when data ready)
+        feedbackView.alpha = 0
         activityIndicator.startAnimating()
         waitForCaptions()
     }

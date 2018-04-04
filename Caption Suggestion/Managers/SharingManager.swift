@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import FBSDKShareKit
 
-class SharingManager {
+class SharingManager: NSObject {
     class var sharedManager: SharingManager {
         struct Singleton {
             static let instance = SharingManager()
@@ -36,7 +36,8 @@ class SharingManager {
             return
         }
         
-        FBSDKShareDialog.show(from: topVC, with: content, delegate: nil)
+        FBSDKShareDialog.show(from: topVC, with: content, delegate: self)
+        
     }
     
     
@@ -126,5 +127,40 @@ class SharingManager {
     }
      */
     
+}
+
+extension SharingManager: FBSDKSharingDelegate {
+    func sharer(_ sharer: FBSDKSharing!, didCompleteWithResults results: [AnyHashable : Any]!) {
+        print("Worked")
+    }
+    func sharer(_ sharer: FBSDKSharing!, didFailWithError error: Error!) {
+        print("Worked")
+    }
+    func sharerDidCancel(_ sharer: FBSDKSharing!) {
+        print("Worked")
+    }
+
+    /*
+    /**
+     Sent to the delegate when the share completes without error or cancellation.
+     - Parameter sharer: The FBSDKSharing that completed.
+     - Parameter results: The results from the sharer.  This may be nil or empty.
+     */
+    - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results;
+    
+    /**
+     Sent to the delegate when the sharer encounters an error.
+     - Parameter sharer: The FBSDKSharing that completed.
+     - Parameter error: The error.
+     */
+    - (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error;
+    
+    /**
+     Sent to the delegate when the sharer is cancelled.
+     - Parameter sharer: The FBSDKSharing that completed.
+     */
+    - (void)sharerDidCancel:(id<FBSDKSharing>)sharer;
+ 
+ */
 }
 
