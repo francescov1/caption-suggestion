@@ -1,88 +1,98 @@
 //
-//  InstagramProvider.swift
+//  SharingManager.swift
 //  Caption Suggestion
 //
-//  Created by Francesco Virga on 2018-03-29.
+//  Created by Francesco Virga on 2018-04-04.
 //  Copyright © 2018 Francesco Virga. All rights reserved.
 //
 
-import UIKit
 import Foundation
+import UIKit
+import FBSDKShareKit
 
-class InstagramManager: NSObject, UIDocumentInteractionControllerDelegate {
-    
-    private let kInstagramURL = "instagram://app"
-    private let kUTI = "com.instagram.exclusivegram"
-    private let kfileNameExtension = "instagram.igo"
-    private let kAlertViewTitle = "Error"
-    private let kAlertViewMessage = "Please install the Instagram application"
-    
-    var documentInteractionController = UIDocumentInteractionController()
-    
-    // singleton manager
-    class var sharedManager: InstagramManager {
+class SharingManager {
+    class var sharedManager: SharingManager {
         struct Singleton {
-            static let instance = InstagramManager()
+            static let instance = SharingManager()
         }
         return Singleton.instance
     }
     
-    func openInstagram() {
+    // Facebook
+    
+    // TODO: Add caption to post
+    func shareToFacebook(image: UIImage, caption: String) {
+        guard let photo = FBSDKSharePhoto(image: image, userGenerated: true) else {
+            AlertManager.sharedManager.alertUser(title: "Error Sending Data to Facebook", message: "Ensure you have the Facebook app installed and try again", completion: nil)
+            return
+        }
         
+        photo.caption = caption
+        let content = FBSDKSharePhotoContent()
+        content.photos = [photo]
+        
+        guard let topVC = UIApplication.topViewController() else {
+            AlertManager.sharedManager.alertUser(title: "Error opening Instagram", message: "Sorry! We're working on fixing this. Please try again.", completion: nil)
+            return
+        }
+        
+        FBSDKShareDialog.show(from: topVC, with: content, delegate: nil)
+    }
+    
+    
+    // Instagram
+    
+    func documentControllerInstagramPost(image: UIImage, caption: String) {
+        
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let checkValidation = FileManager.default
+        let getImagePath = paths.appending("/image.igo")
+        do {
+            try checkValidation.removeItem(atPath: getImagePath)
+            let imageData =  UIImageJPEGRepresentation(image, 1.0)
+            try imageData?.write(to: URL(fileURLWithPath: getImagePath), options: .atomicWrite)
+        }
+        catch let error {
+            print("error with checkValidation or imageData write:\n \(error)")
+            return
+        }
+        let imageUrl = URL(fileURLWithPath: getImagePath)
+        let documentController = UIDocumentInteractionController(url: imageUrl)
+        documentController.uti = "com.instagram.exclusivegram"
+        
+        guard let topVC = UIApplication.topViewController() else {
+            AlertManager.sharedManager.alertUser(title: "Error opening Instagram", message: "Sorry! We're working on fixing this. Please try again.", completion: nil)
+            return
+        }
+        
+        documentController.annotation = ["InstagramCaption": caption]
+        
+        // topVC.present(documentController, animated: true, completion: nil)
+        documentController.presentOptionsMenu(from: topVC.view.frame, in: topVC.view, animated: true)
+    }
+    
+    /*
+    func openInstagram() {
         if let instagramURL = URL(string: "instagram://app") {
             if UIApplication.shared.canOpenURL(instagramURL) {
                 UIApplication.shared.open(instagramURL, options: [:], completionHandler: nil)
             }
         }
         /*if UIApplication.shared.canOpenURL(instagramURL!) {
-            UIApplication.shared.open(instagramURL, options: nil, completionHandler: nil)
-        }*/
-        
-        
+         UIApplication.shared.open(instagramURL, options: nil, completionHandler: nil)
+         }*/
         //NSURL *instagramURL = [NSURL URLWithString:@"instagram://location?id=1"];
- 
     }
-    
-    func documentControllerPost(image: UIImage, caption: String) {
-       
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let checkValidation = FileManager.default
-        let getImagePath = paths.appending("/image.igo")
-        do {
-            try checkValidation.removeItem(atPath: getImagePath)
-        }
-        catch let error {
-            print("error with checkValidation: \(error)")
-            return
-        }
-        
-        let imageData =  UIImageJPEGRepresentation(image, 1.0)
-        
-        do {
-            try imageData?.write(to: URL(fileURLWithPath: getImagePath), options: .atomicWrite)
-        }
-        catch let error {
-            print("error with imageData write: \(error)")
-            return
-        }
-        
-        let imageUrl = URL(fileURLWithPath: getImagePath)
-        
-        var documentController = UIDocumentInteractionController(url: imageUrl)
-        documentController.uti = "com.instagram.exclusivegram"
-        guard let topVC = UIApplication.topViewController() else {
-            print("could not find topVC")
-            return
-        }
-        documentController.annotation = ["InstagramCaption": caption]
-        
-        documentController.presentOptionsMenu(from: topVC.view.frame, in: topVC.view, animated: true)
-        AlertManager.sharedManager.alertUser(title: "Test", message: "Worked", completion: nil)
-       // topVC.present(documentController, animated: true, completion: nil)
-        
-    }
+
     
     func postImageToInstagramWithCaption(imageData: Data, instagramCaption: String, barButton: UIBarButtonItem) {
+        let kInstagramURL = "instagram://app"
+        let kUTI = "com.instagram.exclusivegram"
+        let kfileNameExtension = "instagram.igo"
+        let kAlertViewTitle = "Error"
+        let kAlertViewMessage = "Please install the Instagram application"
+     
+        var documentInteractionController = UIDocumentInteractionController()
         // called to post image with caption to the instagram application
         
         let instagramURL = URL(string: kInstagramURL)
@@ -114,6 +124,7 @@ class InstagramManager: NSObject, UIDocumentInteractionControllerDelegate {
             //UIAlertView(title: kAlertViewTitle, message: kAlertViewMessage, delegate:nil, cancelButtonTitle:"Ok").show()
         }
     }
+     */
     
 }
 

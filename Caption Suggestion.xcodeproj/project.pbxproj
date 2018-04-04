@@ -15,9 +15,9 @@
 		7919F23E206D622700C61A5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7919F23C206D622700C61A5E /* LaunchScreen.storyboard */; };
 		7919F246206D63C300C61A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7919F245206D63C300C61A5E /* GoogleService-Info.plist */; };
 		7919F248206D655800C61A5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F247206D655800C61A5E /* Constants.swift */; };
-		7919F24A206D658800C61A5E /* InstagramManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F249206D658800C61A5E /* InstagramManager.swift */; };
 		7919F24C206D65C200C61A5E /* CaptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */; };
 		7919F24E206D66C900C61A5E /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F24D206D66C900C61A5E /* CaptionViewController.swift */; };
+		791A45A1207548E30036712D /* SharingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A45A0207548E30036712D /* SharingManager.swift */; };
 		79CBD52320701D1000975243 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CBD52220701D1000975243 /* AlertManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,9 +33,9 @@
 		7919F23F206D622700C61A5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7919F245206D63C300C61A5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7919F247206D655800C61A5E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		7919F249206D658800C61A5E /* InstagramManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramManager.swift; sourceTree = "<group>"; };
 		7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTableViewCell.swift; sourceTree = "<group>"; };
 		7919F24D206D66C900C61A5E /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
+		791A45A0207548E30036712D /* SharingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingManager.swift; sourceTree = "<group>"; };
 		79CBD52220701D1000975243 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		A96906D84B05DCBD2FF1798E /* Pods-Caption Suggestion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caption Suggestion.release.xcconfig"; path = "Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,20 +73,44 @@
 		7919F232206D622700C61A5E /* Caption Suggestion */ = {
 			isa = PBXGroup;
 			children = (
-				7919F233206D622700C61A5E /* AppDelegate.swift */,
-				7919F235206D622700C61A5E /* ViewController.swift */,
+				791A45A220754F8F0036712D /* Managers */,
+				791A45A320754FA60036712D /* View Controllers */,
+				791A45A420754FD10036712D /* Supporting Files */,
 				7919F237206D622700C61A5E /* Main.storyboard */,
-				7919F23A206D622700C61A5E /* Assets.xcassets */,
 				7919F23C206D622700C61A5E /* LaunchScreen.storyboard */,
-				7919F245206D63C300C61A5E /* GoogleService-Info.plist */,
-				7919F23F206D622700C61A5E /* Info.plist */,
+				7919F233206D622700C61A5E /* AppDelegate.swift */,
 				7919F247206D655800C61A5E /* Constants.swift */,
-				7919F249206D658800C61A5E /* InstagramManager.swift */,
 				7919F24B206D65C200C61A5E /* CaptionTableViewCell.swift */,
-				7919F24D206D66C900C61A5E /* CaptionViewController.swift */,
-				79CBD52220701D1000975243 /* AlertManager.swift */,
 			);
 			path = "Caption Suggestion";
+			sourceTree = "<group>";
+		};
+		791A45A220754F8F0036712D /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				79CBD52220701D1000975243 /* AlertManager.swift */,
+				791A45A0207548E30036712D /* SharingManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		791A45A320754FA60036712D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7919F235206D622700C61A5E /* ViewController.swift */,
+				7919F24D206D66C900C61A5E /* CaptionViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		791A45A420754FD10036712D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7919F23A206D622700C61A5E /* Assets.xcassets */,
+				7919F245206D63C300C61A5E /* GoogleService-Info.plist */,
+				7919F23F206D622700C61A5E /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		7EA7834DD467862CC0593AF9 /* Frameworks */ = {
@@ -268,8 +292,8 @@
 				7919F24E206D66C900C61A5E /* CaptionViewController.swift in Sources */,
 				7919F234206D622700C61A5E /* AppDelegate.swift in Sources */,
 				7919F248206D655800C61A5E /* Constants.swift in Sources */,
-				7919F24A206D658800C61A5E /* InstagramManager.swift in Sources */,
 				79CBD52320701D1000975243 /* AlertManager.swift in Sources */,
+				791A45A1207548E30036712D /* SharingManager.swift in Sources */,
 				7919F24C206D65C200C61A5E /* CaptionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,7 +435,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = N23ZS9W2Y5;
-				INFOPLIST_FILE = "Caption Suggestion/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Caption Suggestion/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "francescovirga.Caption-Suggestion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -427,7 +451,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N23ZS9W2Y5;
-				INFOPLIST_FILE = "Caption Suggestion/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Caption Suggestion/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "francescovirga.Caption-Suggestion";
 				PRODUCT_NAME = "$(TARGET_NAME)";

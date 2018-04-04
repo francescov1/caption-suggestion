@@ -20,7 +20,6 @@ class CaptionViewController: UIViewController {
     @IBOutlet weak var sadReactionButton: UIButton!
     
     var imageToPost: UIImage?
-    
     var tableData: [String] = []
     
     
@@ -30,12 +29,12 @@ class CaptionViewController: UIViewController {
     
     @IBAction func happyReactionAction(_ sender: Any) {
         disableFeedback()
-        alertUser(title: "Enjoy the ❤️s", message: "Hope to see you again soon!")
+        AlertManager.sharedManager.alertUser(title: "Enjoy the ❤️s", message: "Hope to see you again soon!", completion: nil)
     }
     
     @IBAction func sadReactionAction(_ sender: Any) {
         disableFeedback()
-        alertUser(title: "Sorry about that!", message: "We will consider this and improve our system for next time 😘")
+        AlertManager.sharedManager.alertUser(title: "Sorry about that!", message: "We will consider this and improve our system for next time 😘", completion: nil)
     }
     
     override func viewDidLoad() {
@@ -76,8 +75,7 @@ class CaptionViewController: UIViewController {
                 
                 // log in FIR analytics
                 // show error message and ask if want to retry
-                
-                self.alertUser(title: "Error", message: "Sorry about this, we're working on fixing it! Please try again.")
+                AlertManager.sharedManager.alertUser(title: "Error", message: "Sorry about this, we're working on fixing it! Please try again.", completion: nil)
                 print(error.localizedDescription)
             }
         }
@@ -86,7 +84,6 @@ class CaptionViewController: UIViewController {
             if let image = notification.object as? UIImage {
                 self.imageToPost = image
             }
-            
         }
     }
     
@@ -97,66 +94,24 @@ class CaptionViewController: UIViewController {
                 print("Error with title names")
                 return
             }
-            
             switch buttonTitle {
-                
             case "Facebook":
-                self.shareToFacebook(caption: caption)
+                SharingManager.sharedManager.shareToFacebook(image: image, caption: caption)
+                //self.shareToFacebook(caption: caption)
             case "Instagram":
-                InstagramManager.sharedManager.documentControllerPost(image: image, caption: caption)
+                SharingManager.sharedManager.documentControllerInstagramPost(image: image, caption: caption)
+                //InstagramManager.sharedManager.documentControllerPost(image: image, caption: caption)
             default:
                 print("Error")
-                
             }
         }
     }
     
-    func shareSheet(caption: String) {
-         guard let image = imageToPost else { return }
-        
-        
-        //var activityVC = UIActivityViewController(activityItems: [caption, image], applicationActivities: [])
-        //activityVC.excludedActivityTypes[UIActivityTypePostToFacebook]
-        //present(activityVC, animated: true, completion: nil)
-
-        //InstagramManager.sharedManager.postImageToInstagramWithCaption(imageData: image, instagramCaption: caption, barButton: <#T##UIBarButtonItem#>)
-        InstagramManager.sharedManager.openInstagram()
-    }
-    
-    func shareToFacebook(caption: String) {
-        // TODO: Add caption to post
-        guard let image = imageToPost else {
-            alertUser(title: "Error Opening Facebook", message: "Ensure you have the Facebook app installed and try again")
-            return
-        }
-        
-        guard var photo = FBSDKSharePhoto(image: image, userGenerated: true) else {
-            alertUser(title: "Error Sending Data to Facebook", message: "Ensure you have the Facebook app installed and try again")
-            return
-        }
-        
-        photo.caption = caption
-        
-        var content = FBSDKSharePhotoContent()
-        content.photos = [photo]
-    
-        
-        FBSDKShareDialog.show(from: self, with: content, delegate: nil)
-        
-    }
-    
+    // TODO: make buttons translucent and show textbook to provide feedback
     func disableFeedback() {
         happyReactionButton.isEnabled = false
         sadReactionButton.isEnabled = false
-        // TODO:make buttons translucent
-    }
-    
-    // helper function (pop-up box)
-    func alertUser(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
-        alert.addAction(ok)
-        present(alert, animated: true, completion: nil)
+        
     }
     
     func fadeIn(view : UIView, delay: TimeInterval) {
@@ -166,42 +121,6 @@ class CaptionViewController: UIViewController {
         UIView.animate(withDuration: animationDuration, delay: delay, options: .curveEaseInOut, animations: { () -> Void in
             view.alpha = 1
         }, completion: nil)
-    }
-    
-    
-    func documentControllerPost(image: UIImage, caption: String) {
-        
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let checkValidation = FileManager.default
-        let getImagePath = paths.appending("/image.igo")
-        do {
-            try checkValidation.removeItem(atPath: getImagePath)
-        }
-        catch let error {
-            print("error with checkValidation: \(error)")
-            return
-        }
-        
-        let imageData =  UIImageJPEGRepresentation(image, 1.0)
-        
-        do {
-            try imageData?.write(to: URL(fileURLWithPath: getImagePath), options: .atomicWrite)
-        }
-        catch let error {
-            print("error with imageData write: \(error)")
-            return
-        }
-        
-        let imageUrl = URL(fileURLWithPath: getImagePath)
-        
-        var documentController = UIDocumentInteractionController(url: imageUrl)
-        documentController.uti = "com.instagram.exclusivegram"
-    
-        documentController.presentOptionsMenu(from: self.view.frame, in: self.view, animated: true)
-        // try other option (openInMenu???)
-        AlertManager.sharedManager.alertUser(title: "Test", message: "Worked", completion: nil)
-        // topVC.present(documentController, animated: true, completion: nil)
-        
     }
     
 }
@@ -230,7 +149,7 @@ extension CaptionViewController: UITableViewDataSource, UITableViewDelegate {
         //shareSheet(caption: caption)
         
         guard let image = imageToPost else {
-            alertUser(title: "Error Opening Facebook", message: "Ensure you have the Facebook app installed and try again")
+            AlertManager.sharedManager.alertUser(title: "Error with image uploaded", message: "Ensure the image is still saved on your phone and try again", completion: nil)
             return
         }
         sharePopup(image: image, caption: caption)
