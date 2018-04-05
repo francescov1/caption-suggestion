@@ -101,10 +101,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-    
 }
 
 // ImagePicker extension

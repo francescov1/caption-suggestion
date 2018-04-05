@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Constants {
     static let PICKER_DATA = ["Lyric", "Generic", "Sentimental", "Funny", "Selfie", "Pun", "Motivational"]
@@ -25,6 +26,19 @@ struct Constants {
         static let CAPTIONS_RECEIVED = NSNotification.Name("CaptionsReceived")
         static let IMAGE_TO_POST = NSNotification.Name("ImageToPost")
     }
-    
-    
+}
+
+extension UIImage {
+    var jpeg: Data? {
+        return UIImageJPEGRepresentation(self, 1)
+    }
+    var png: Data? {
+        return UIImagePNGRepresentation(self)
+    }
+}
+
+extension Data {
+    var uiImage: UIImage? {
+        return UIImage(data: self)
+    }
 }

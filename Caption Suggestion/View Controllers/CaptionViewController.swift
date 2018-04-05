@@ -30,13 +30,13 @@ class CaptionViewController: UIViewController {
     @IBAction func happyReactionAction(_ sender: Any) {
         disableFeedback()
         AlertManager.sharedManager.alertUser(title: "Enjoy the ❤️s", message: "Hope to see you again soon!", completion: nil)
-        DatabaseManager.sharedManager.saveReaction(captions: tableData, good: true)
+        DatabaseManager.sharedManager.saveReaction(imageData: imageToPost?.png, captions: tableData, good: true)
     }
     
     @IBAction func sadReactionAction(_ sender: Any) {
         disableFeedback()
         AlertManager.sharedManager.alertUser(title: "Sorry about that!", message: "We will consider this and improve our system for next time 😘", completion: nil)
-        DatabaseManager.sharedManager.saveReaction(captions: tableData, good: false)
+        DatabaseManager.sharedManager.saveReaction(imageData: imageToPost?.png, captions: tableData, good: false)
     }
     
     override func viewDidLoad() {
@@ -85,6 +85,7 @@ class CaptionViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: Constants.ListenerName.IMAGE_TO_POST, object: nil, queue: nil) { (notification) in
             if let image = notification.object as? UIImage {
                 self.imageToPost = image
+                
             }
         }
     }
@@ -154,6 +155,8 @@ extension CaptionViewController: UITableViewDataSource, UITableViewDelegate {
             AlertManager.sharedManager.alertUser(title: "Error with image uploaded", message: "Ensure the image is still saved on your phone and try again", completion: nil)
             return
         }
+        
+        
         
         sharePopup(image: image, caption: caption)
         // documentControllerPost(image: image, caption: caption)
