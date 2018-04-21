@@ -48,6 +48,7 @@ class SharingManager: NSObject {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let checkValidation = FileManager.default
         let getImagePath = paths.appending("/image.igo")
+        
         do {
             try checkValidation.removeItem(atPath: getImagePath)
             let imageData =  UIImageJPEGRepresentation(image, 1.0)
@@ -55,8 +56,10 @@ class SharingManager: NSObject {
         }
         catch let error {
             print("error with checkValidation or imageData write:\n \(error)")
+            AlertManager.sharedManager.alertUser(title: "Error opening Instagram", message: "Ensure you have the Instagram app downloaded on your phone and tgry again!", completion: nil)
             return
         }
+        
         let imageUrl = URL(fileURLWithPath: getImagePath)
         let documentController = UIDocumentInteractionController(url: imageUrl)
         documentController.uti = "com.instagram.exclusivegram"
@@ -67,6 +70,7 @@ class SharingManager: NSObject {
         }
         
         documentController.annotation = ["InstagramCaption": caption]
+        documentController.delegate = self
         
         // topVC.present(documentController, animated: true, completion: nil)
         documentController.presentOptionsMenu(from: topVC.view.frame, in: topVC.view, animated: true)
@@ -85,9 +89,9 @@ class SharingManager: NSObject {
         //NSURL *instagramURL = [NSURL URLWithString:@"instagram://location?id=1"];
     }
 
-    
+    */
     func postImageToInstagramWithCaption(imageData: Data, instagramCaption: String, barButton: UIBarButtonItem) {
-        let kInstagramURL = "instagram://app"
+        let kInstagramUrl = "instagram://app"
         let kUTI = "com.instagram.exclusivegram"
         let kfileNameExtension = "instagram.igo"
         let kAlertViewTitle = "Error"
@@ -96,8 +100,8 @@ class SharingManager: NSObject {
         var documentInteractionController = UIDocumentInteractionController()
         // called to post image with caption to the instagram application
         
-        let instagramURL = URL(string: kInstagramURL)
-        if UIApplication.shared.canOpenURL(instagramURL!) {
+        let instagramUrl = URL(string: kInstagramUrl)
+        if UIApplication.shared.canOpenURL(instagramUrl!) {
             let manager = FileManager()
             let path = manager.temporaryDirectory.appendingPathComponent(kfileNameExtension)
             do {
@@ -125,7 +129,7 @@ class SharingManager: NSObject {
             //UIAlertView(title: kAlertViewTitle, message: kAlertViewMessage, delegate:nil, cancelButtonTitle:"Ok").show()
         }
     }
-     */
+     
     
 }
 
@@ -165,5 +169,15 @@ extension SharingManager: FBSDKSharingDelegate {
     - (void)sharerDidCancel:(id<FBSDKSharing>)sharer;
  
  */
+}
+
+extension SharingManager: UIDocumentInteractionControllerDelegate {
+    func documentInteractionControllerDidDismissOptionsMenu(_ controller: UIDocumentInteractionController) {
+        print("Dismissed options menu")
+    }
+    
+    func documentInteractionController(_ controller: UIDocumentInteractionController, didEndSendingToApplication application: String?) {
+        print("Sent to app")
+    }
 }
 

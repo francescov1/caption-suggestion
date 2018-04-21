@@ -23,9 +23,12 @@ class DatabaseManager {
     }
     
     // use this until saveFeedback is fully implemented
-    func saveReaction(captions: [String], good: Bool) {
-        let feedback: [String: Any] = ["captions": captions, "good": good]
+    func saveReaction(imageData: Data?, captions: [String], good: Bool) {
         
+        var feedback: [String: Any] = ["timestamp": FIRServerValue.timestamp(), "image": "NA", "captions": captions, "good": good]
+        if imageData != nil {
+            feedback["image"] = imageData?.base64EncodedString()
+        }
         dbRef.child("feedback").childByAutoId().setValue(feedback) { (error, ref) in
             if error != nil {
                 // log error
@@ -36,9 +39,12 @@ class DatabaseManager {
     }
     
     // call this after user leaves screen or exists, so if they leave written feedback its also given
-    func saveFeedback(captions: [String], imageData: Data, keyword: String, type: String, good: Bool, message: String?) {
-        let feedback: [String: Any] = ["image": imageData, "captions": captions, "keyword": keyword, "type": type, "good": good, "message": message ?? "NA"]
+    func saveFeedback(captions: [String], imageData: Data?, keyword: String, type: String, good: Bool, message: String?) {
         
+        var feedback: [String: Any] = ["timestamp": FIRServerValue.timestamp(), "image": "NA", "captions": captions, "keyword": keyword, "type": type, "good": good, "message": message ?? "NA"]
+        if imageData != nil {
+            feedback["image"] = imageData?.base64EncodedString()
+        }
         dbRef.child("feedback").childByAutoId().setValue(feedback) { (error, ref) in
             if error != nil {
                 // log error
@@ -47,7 +53,5 @@ class DatabaseManager {
             }
         }
     }
-    
-    
     
 }

@@ -4,6 +4,7 @@ const functions = require('firebase-functions');
 admin.initializeApp(functions.config().firebase);
 const db =  admin.database();
 
+const stopWord= require('stopword');
 const requestPK = require('request');
 const util = require('util');
 const headers = functions.config().backend.reqheader;
@@ -26,11 +27,9 @@ exports.suggestCaptions = functions.https.onRequest((request, response) => {
 
     let numOfCaps = parseInt(request.headers[headers.numsuggestions]);
 
-    // change to get Tags visualFeatures and only use tags with certainty > 0.8 (for example)
-
     // Azure Computer Vision API call
     var params = {
-        "visualFeatures": "Description",
+        "visualFeatures": "Tags,Description",
         "details": "",
         "language": "en",
     };
@@ -51,20 +50,23 @@ exports.suggestCaptions = functions.https.onRequest((request, response) => {
         console.log('Data:\n' + body);
 
         let data = JSON.parse(body);
+        let topTags = data.tags;
         let description = data.description;
         let genCaptionsObj = description.captions;
-        let tags = description.tags;
+        let allTags = description.tags;
 
-        var genCaptions = [];
-        for (var i=0; i<genCaptions.length; i++) {
-          genCaptions.push(genCaptionsObj[i].text);
+        var genCaptionTags = [];
+        for (var i=0; i<genCaptionsObj.length; i++) {
+          var genTags = genCaptionsObj[i].text.split(' ');
+          genTags = stopWord.removeStopwords(genTags);
+          genCaptionTags = genCaptionTags.concat(genTags);
         }
 
         Promise.all([captionPromise, synonymsPromise]).then(results => {
             console.time("refineTime");
             let captions = results[0];
             let synonyms = results[1];
-            let refinedCaptions = captionRefine(captions, tags, additionalKeyword || null, synonyms || null, numOfCaps);
+            let refinedCaptions = captionRefine(captions, topTags, allTags, genCaptionTags, additionalKeyword || null, synonyms || null, numOfCaps);
             console.log('Final caption suggestions:\n' + util.inspect(refinedCaptions, {showHidden: false, depth: null}));
             let dataResponse = {
               'suggestedCaptions': refinedCaptions,
@@ -97,8 +99,11 @@ function fetchCaptions(type) {
     });
 }
 
+// TODO:
+// make sure tags and description.tags line up properly
+// ensure continuing loop iterator works
 
-function captionRefine(captions, tags, keyword, synonyms, n) {
+function captionRefine(captions, topTags, allTags, genCaptionTags, keyword, synonyms, n) {
     // fill flag array with 1 so that if no tags apply, first 3 captions
     // will still be chosen
     var flags = Array(captions.length);
@@ -106,9 +111,17 @@ function captionRefine(captions, tags, keyword, synonyms, n) {
     // loop through captions, check for keywords
     // if found, increment flags accordingly
     for (var j=0; j<captions.length; j++) {
+      for (var i=0; i<topTags.length; i++) {
+        if (topTags[i].confidence < 0.5) break;
+        if (captions[j].indexOf(topTags[i].name) !== -1) flags[j] += 2;
+      }
       // check for tags in captions
-      for (var i=0; i<tags.length; i++) {
-        if(captions[j].indexOf(tags[i]) !== -1) flags[j] += 2;
+      for (i; i<allTags.length; i++) {
+        if(captions[j].indexOf(allTags[i]) !== -1) flags[j] += 1;
+      }
+      // check for generated caption words in captions
+      for (i=0; i<genCaptionTags.length; i++) {
+        if(captions[j].indexOf(allTags[i]) !== -1) flags[j] += 1;
       }
       // check for keyword synonyms in captions
       if (synonyms) {
@@ -117,7 +130,7 @@ function captionRefine(captions, tags, keyword, synonyms, n) {
         }
       }
       // check for keyword in captions
-      if(keyword && captions[j].indexOf(keyword) !== -1) flags[j] += 3;
+      if(keyword && captions[j].indexOf(keyword) !== -1) flags[j] += 4;
     }
 
     console.log('Flags:\n' + flags);
