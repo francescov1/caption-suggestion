@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		31DA4510653ED5A025FFDB9D /* Pods_Caption_Suggestion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2092FC42B31335BB6CE3891B /* Pods_Caption_Suggestion.framework */; };
 		7919F234206D622700C61A5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F233206D622700C61A5E /* AppDelegate.swift */; };
-		7919F236206D622700C61A5E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F235206D622700C61A5E /* ViewController.swift */; };
+		7919F236206D622700C61A5E /* GenerateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F235206D622700C61A5E /* GenerateViewController.swift */; };
 		7919F239206D622700C61A5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7919F237206D622700C61A5E /* Main.storyboard */; };
 		7919F23B206D622700C61A5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7919F23A206D622700C61A5E /* Assets.xcassets */; };
 		7919F23E206D622700C61A5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7919F23C206D622700C61A5E /* LaunchScreen.storyboard */; };
@@ -19,6 +19,7 @@
 		7919F24E206D66C900C61A5E /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919F24D206D66C900C61A5E /* CaptionViewController.swift */; };
 		791A45A1207548E30036712D /* SharingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A45A0207548E30036712D /* SharingManager.swift */; };
 		791A45A6207554380036712D /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A45A5207554380036712D /* DatabaseManager.swift */; };
+		79787728208AEF1000AFEB3E /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79787727208AEF1000AFEB3E /* WelcomeViewController.swift */; };
 		79CBD52320701D1000975243 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CBD52220701D1000975243 /* AlertManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +28,7 @@
 		701FD72900C685D9A002113A /* Pods-Caption Suggestion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caption Suggestion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion.debug.xcconfig"; sourceTree = "<group>"; };
 		7919F230206D622700C61A5E /* Caption Suggestion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Caption Suggestion.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7919F233206D622700C61A5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7919F235206D622700C61A5E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7919F235206D622700C61A5E /* GenerateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateViewController.swift; sourceTree = "<group>"; };
 		7919F238206D622700C61A5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7919F23A206D622700C61A5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7919F23D206D622700C61A5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +39,7 @@
 		7919F24D206D66C900C61A5E /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
 		791A45A0207548E30036712D /* SharingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingManager.swift; sourceTree = "<group>"; };
 		791A45A5207554380036712D /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		79787727208AEF1000AFEB3E /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		79CBD52220701D1000975243 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		A96906D84B05DCBD2FF1798E /* Pods-Caption Suggestion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caption Suggestion.release.xcconfig"; path = "Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,7 +102,8 @@
 		791A45A320754FA60036712D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7919F235206D622700C61A5E /* ViewController.swift */,
+				79787727208AEF1000AFEB3E /* WelcomeViewController.swift */,
+				7919F235206D622700C61A5E /* GenerateViewController.swift */,
 				7919F24D206D66C900C61A5E /* CaptionViewController.swift */,
 			);
 			path = "View Controllers";
@@ -260,6 +263,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Caption Suggestion/Pods-Caption Suggestion-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/CenteredCollectionView/CenteredCollectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -267,10 +271,12 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CenteredCollectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -278,6 +284,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -291,8 +298,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79787728208AEF1000AFEB3E /* WelcomeViewController.swift in Sources */,
 				791A45A6207554380036712D /* DatabaseManager.swift in Sources */,
-				7919F236206D622700C61A5E /* ViewController.swift in Sources */,
+				7919F236206D622700C61A5E /* GenerateViewController.swift in Sources */,
 				7919F24E206D66C900C61A5E /* CaptionViewController.swift in Sources */,
 				7919F234206D622700C61A5E /* AppDelegate.swift in Sources */,
 				7919F248206D655800C61A5E /* Constants.swift in Sources */,

@@ -16,4 +16,6 @@ target 'Caption Suggestion' do
     pod 'FacebookLogin'
     pod 'FacebookShare'
 
+    pod 'CenteredCollectionView'
+    pod 'ZKCarousel'
 end

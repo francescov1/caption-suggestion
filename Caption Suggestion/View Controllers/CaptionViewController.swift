@@ -10,15 +10,45 @@ import UIKit
 import FBSDKShareKit
 import FirebaseCore
 import FirebaseDatabase
+//import CenteredCollectionView
+import ZKCarousel
 
 class CaptionViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var feedbackView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var happyReactionButton: UIButton!
     @IBOutlet weak var sadReactionButton: UIButton!
+    @IBOutlet weak var suggestedCaptionView: UIView!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    /*
+    // The width of each cell with respect to the screen.
+    // Can be a constant or a percentage.
+    let cellPercentWidth: CGFloat = 0.7
+    
+    // A reference to the `CenteredCollectionViewFlowLayout`.
+    // Must be aquired from the IBOutlet collectionView.
+    var centeredCollectionViewFlowLayout = CenteredCollectionViewFlowLayout()
+    */
+    
+    
+    // other pod
+    let carousel : ZKCarousel = {
+        let carousel = ZKCarousel()
+        
+        // Create as many slides as you'd like to show in the carousel
+        let slide = ZKCarouselSlide(image: UIImage(), title: "Hello There 👻", description: "Welcome to the ZKCarousel demo! Swipe left to view more slides!")
+        let slide1 = ZKCarouselSlide(image: UIImage(), title: "A Demo Slide ☝🏼", description: "lorem ipsum devornum cora fusoa foen sdie ha odab ebakldf shjbesd ljkhf")
+        let slide2 = ZKCarouselSlide(image: UIImage(), title: "Another Demo Slide ✌🏼", description: "lorem ipsum devornum cora fusoa foen ebakldf shjbesd ljkhf")
+        
+        // Add the slides to the carousel
+        carousel.slides = [slide, slide1, slide2]
+        
+        return carousel
+    }()
+
     
     var imageToPost: UIImage?
     var tableData: [String] = []
@@ -41,12 +71,14 @@ class CaptionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
         
         // hide feedbackView (fade in when data ready)
         feedbackView.alpha = 0
         activityIndicator.startAnimating()
         waitForCaptions()
+        
+        self.carousel.frame = CGRect()
+        self.suggestedCaptionView.addSubview(self.carousel)
     }
     
     deinit {
@@ -57,14 +89,37 @@ class CaptionViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    /*func initializeCollectionView() {
+        // Get the reference to the `CenteredCollectionViewFlowLayout` (REQURED STEP)
+        centeredCollectionViewFlowLayout = collectionView.collectionViewLayout as! CenteredCollectionViewFlowLayout
+        
+        // Modify the collectionView's decelerationRate (REQURED STEP)
+        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        
+        // Assign delegate and data source
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        // Configure the required item size (REQURED STEP)
+        centeredCollectionViewFlowLayout.itemSize = CGSize(
+            width: view.bounds.width * cellPercentWidth,
+            height: view.bounds.height * cellPercentWidth * cellPercentWidth
+        )
+        
+        // Configure the optional inter item spacing (OPTIONAL STEP)
+        centeredCollectionViewFlowLayout.minimumLineSpacing = 20
+        
+        // Get rid of scrolling indicators
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+    }*/
     
     func waitForCaptions() {
         NotificationCenter.default.addObserver(forName: Constants.ListenerName.CAPTIONS_RECEIVED, object: nil, queue: nil) { (notification) in
             if let captions = notification.object as? CaptionJSON {
-                self.tableData = captions.suggestedCaptions
+                //self.tableData = captions.suggestedCaptions
                 
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
                     
                     // fade in feedbackView once loading complete
                     self.activityIndicator.stopAnimating()
@@ -85,6 +140,10 @@ class CaptionViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: Constants.ListenerName.IMAGE_TO_POST, object: nil, queue: nil) { (notification) in
             if let image = notification.object as? UIImage {
                 self.imageToPost = image
+                DispatchQueue.main.async { // Correct
+                    self.imageView.image = image
+                }
+                
                 
             }
         }
@@ -129,50 +188,31 @@ class CaptionViewController: UIViewController {
 }
 
 
-// TableView extension
-extension CaptionViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func configureTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = UIColor.clear
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 140
+
+// CollectionView Extension
+/*
+
+extension CaptionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        tableView.allowsMultipleSelection = false
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableData.count
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let caption = tableData[indexPath.row]
-        //shareToFacebook(caption: caption)
-        //shareSheet(caption: caption)
-        
-        guard let image = imageToPost else {
-            AlertManager.sharedManager.alertUser(title: "Error with image uploaded", message: "Ensure the image is still saved on your phone and try again", completion: nil)
-            return
+        // check if the currentCenteredPage is not the page that was touched
+        if let currentCenteredPage = centeredCollectionViewFlowLayout.currentCenteredPage, currentCenteredPage != indexPath.row {
+            // trigger a scrollTo(index: animated:)
+            collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition(rawValue: 0), animated: true)
         }
         
-        
-        
-        sharePopup(image: image, caption: caption)
-        // documentControllerPost(image: image, caption: caption)
-       // InstagramManager.sharedManager.documentControllerPost(image: image, caption: caption)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Initialize cell as custom cell (see CaptionTableViewCell file)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellReuseId", for: indexPath) as! CaptionTableViewCell
-        cell.captionLabel.text = tableData[indexPath.row]
-        //cell.textLabel?.font = UIFont(name: (cell.textLabel?.font.fontName)!, size: 12)
-        //cell.textLabel?.textColor = UIColor.gray
-        cell.backgroundColor = UIColor.clear
-        return cell
+    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
     }
     
-}
+    
+}*/
+
 

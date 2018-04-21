@@ -15,12 +15,14 @@ struct CaptionJSON: Codable {
     var suggestedCaptions: [String]
 }
 
-class ViewController: UIViewController, UINavigationControllerDelegate {
+class GenerateViewController: UIViewController, UINavigationControllerDelegate {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var keywordField: UITextField!
     @IBOutlet weak var generateButton: UIButton!
     @IBOutlet weak var pickerViewer: UIPickerView!
+    @IBOutlet weak var exitImageButton: UIImageView!
+    @IBOutlet weak var chooseImageButton: UIButton!
     
     let pickerData = Constants.PICKER_DATA
     
@@ -38,11 +40,21 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
     
+    @IBAction func exitImageAction(_ sender: Any) {
+        imageView.image = nil
+        exitImageButton.isHidden = true
+        chooseImageButton.isHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addTapGesture()
         pickerViewer.dataSource = self
         pickerViewer.delegate = self
+        let middle: Int = pickerViewer.numberOfRows(inComponent: 0) / 2
+    
+        pickerViewer.selectRow(middle, inComponent: 0, animated: true)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -104,7 +116,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 }
 
 // ImagePicker extension
-extension ViewController: UIImagePickerControllerDelegate {
+extension GenerateViewController: UIImagePickerControllerDelegate {
     
     func addNewPicture() {
         let picker = UIImagePickerController()
@@ -120,13 +132,15 @@ extension ViewController: UIImagePickerControllerDelegate {
         }
         
         imageView.image = image
+        chooseImageButton.isHidden = true
         generateButton.isEnabled = true
+        exitImageButton.isHidden = false
         dismiss(animated: true)
     }
 }
 
 // PickerView extension
-extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate  {
+extension GenerateViewController: UIPickerViewDataSource, UIPickerViewDelegate  {
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -145,9 +159,9 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate  {
 }
 
 // TextField extension
-extension ViewController: UITextFieldDelegate {
+extension GenerateViewController: UITextFieldDelegate {
     func addTapGesture(){
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GenerateViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     @objc func dismissKeyboard() {
