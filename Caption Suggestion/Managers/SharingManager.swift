@@ -89,9 +89,9 @@ class SharingManager: NSObject {
         //NSURL *instagramURL = [NSURL URLWithString:@"instagram://location?id=1"];
     }
 
-    
+    */
     func postImageToInstagramWithCaption(imageData: Data, instagramCaption: String, barButton: UIBarButtonItem) {
-        let kInstagramURL = "instagram://app"
+        let kInstagramUrl = "instagram://app"
         let kUTI = "com.instagram.exclusivegram"
         let kfileNameExtension = "instagram.igo"
         let kAlertViewTitle = "Error"
@@ -100,8 +100,8 @@ class SharingManager: NSObject {
         var documentInteractionController = UIDocumentInteractionController()
         // called to post image with caption to the instagram application
         
-        let instagramURL = URL(string: kInstagramURL)
-        if UIApplication.shared.canOpenURL(instagramURL!) {
+        let instagramUrl = URL(string: kInstagramUrl)
+        if UIApplication.shared.canOpenURL(instagramUrl!) {
             let manager = FileManager()
             let path = manager.temporaryDirectory.appendingPathComponent(kfileNameExtension)
             do {
@@ -129,7 +129,7 @@ class SharingManager: NSObject {
             //UIAlertView(title: kAlertViewTitle, message: kAlertViewMessage, delegate:nil, cancelButtonTitle:"Ok").show()
         }
     }
-     */
+     
     
 }
 
