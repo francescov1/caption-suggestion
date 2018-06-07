@@ -1,2 +1,2 @@
 # Caption Suggestion App
-Suggests Facebook or Insatgram captions for an image a user wants to post
+Suggests Facebook or Instagram captions for an image a user wants to post
